@@ -55,3 +55,10 @@ export const app = initializeApp(firebaseConfig);
 1. sukurti mygtuka 'Delete user'
 2. jo paspaudimu istrinti vartotoja
    https://firebase.google.com/docs/auth/web/manage-users#delete_a_user
+
+## Add firebase to project
+
+1. pradeti nauja vite projekta
+2. instaliuoti firebase
+3. iskonsolinti firebase app konstanta.
+4. naudoti .env kintamuosius savo prisijungimams
