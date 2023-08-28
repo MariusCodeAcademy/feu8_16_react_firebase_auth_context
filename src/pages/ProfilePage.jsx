@@ -1,10 +1,9 @@
 export default function ProfilePage() {
   // 1. updateProfile funkcijos pagalba atnaujinti reiksmes
   // https://firebase.google.com/docs/auth/web/manage-users#update_a_users_profile
+  // pateikiant forma paimti reiksmes is displayName ir protoUrl
 
   // pasiimti displayName protoUrl info is konteksto
-
-  // pateikiant forma paimti reiksmes is displayName ir protoUrl
 
   return (
     <div className='container'>
