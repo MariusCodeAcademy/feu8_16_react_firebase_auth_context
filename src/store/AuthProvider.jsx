@@ -1,4 +1,6 @@
-import { createContext, useContext, useState } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { auth } from '../firebase/firebase';
 
 const AuthContext = createContext({
   userEmail: 'kazka',
@@ -6,7 +8,8 @@ const AuthContext = createContext({
 });
 
 export default function AuthProvider(props) {
-  const [userEmail, setUserEmail] = useState('ar yra?');
+  const [fireUser, setFireUser] = useState({});
+  const [userEmail, setUserEmail] = useState('');
 
   function login(gotEmail) {
     setUserEmail(gotEmail);
@@ -16,6 +19,25 @@ export default function AuthProvider(props) {
     email: userEmail,
     login: login,
   };
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        const uid = user.uid;
+        // ...
+        console.log('Prisijungta');
+        console.log('user ===', user);
+        setFireUser(user);
+      } else {
+        // User is signed out
+        // ...
+        console.log('Atsijungta');
+        setFireUser(null);
+      }
+    });
+  }, []);
 
   return (
     <AuthContext.Provider value={ctx}>{props.children}</AuthContext.Provider>
