@@ -1,12 +1,12 @@
 import { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext({
-  userEmail: null,
+  userEmail: 'kazka',
   login: () => {},
 });
 
 export default function AuthProvider(props) {
-  const [userEmail, setUserEmail] = useState('');
+  const [userEmail, setUserEmail] = useState('ar yra?');
 
   function login(gotEmail) {
     setUserEmail(gotEmail);

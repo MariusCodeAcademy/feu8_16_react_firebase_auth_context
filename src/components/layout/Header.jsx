@@ -1,7 +1,13 @@
 import { Link, NavLink } from 'react-router-dom';
 import './Header.scss';
+import { useAuth } from '../../store/AuthProvider';
 
 export default function Header() {
+  const ctx = useAuth();
+  console.log('ctx ===', ctx);
+
+  const isLoggedIn = false;
+
   return (
     <header className='header'>
       <div className='container'>
