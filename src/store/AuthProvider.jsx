@@ -3,21 +3,20 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { auth } from '../firebase/firebase';
 
 const AuthContext = createContext({
-  userEmail: 'kazka',
-  login: () => {},
+  userEmail: '',
+  isLoggedIn: false,
 });
 
 export default function AuthProvider(props) {
   const [fireUser, setFireUser] = useState({});
-  const [userEmail, setUserEmail] = useState('');
 
-  function login(gotEmail) {
-    setUserEmail(gotEmail);
-  }
+  const userEmail = fireUser.email;
+  let isLoggedIn = userEmail ? true : false;
+  isLoggedIn = !!userEmail;
 
   const ctx = {
-    email: userEmail,
-    login: login,
+    userEmail: userEmail,
+    isLoggedIn: isLoggedIn,
   };
 
   useEffect(() => {
@@ -34,7 +33,7 @@ export default function AuthProvider(props) {
         // User is signed out
         // ...
         console.log('Atsijungta');
-        setFireUser(null);
+        setFireUser({});
       }
     });
   }, []);
