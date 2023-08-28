@@ -1,4 +1,6 @@
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
+import { auth } from '../firebase/firebase';
 
 export default function Login() {
   const [emailValue, setEmailValue] = useState('');
@@ -8,10 +10,33 @@ export default function Login() {
     event.preventDefault();
     console.log('ar veikia?');
     // atspausdinti email ir passwor cia
+    console.log('emailValue ===', emailValue);
+    console.log('passwordValue ===', passwordValue);
 
     // nutraukti funkcijo vykdyma jei tuscias email arba password
+    if (!emailValue || !passwordValue) {
+      console.warn('email or password not entered');
+      return;
+    }
 
+    loginWithFireBase();
     console.log('forma ok');
+  }
+
+  function loginWithFireBase() {
+    signInWithEmailAndPassword(auth, emailValue, passwordValue)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // ...
+        console.log('user ===', user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log('errorCode ===', errorCode);
+        console.log('errorMessage ===', errorMessage);
+      });
   }
 
   return (
