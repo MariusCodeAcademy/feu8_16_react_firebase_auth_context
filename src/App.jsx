@@ -4,6 +4,7 @@ import { app } from './firebase/firebase';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import Header from './components/layout/Header';
+import ProfilePage from './pages/ProfilePage';
 
 export default function App() {
   console.log('app', app);
@@ -13,6 +14,7 @@ export default function App() {
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/login' element={<LoginPage />} />
+        <Route path='/profile' element={<ProfilePage />} />
       </Routes>
     </div>
   );
