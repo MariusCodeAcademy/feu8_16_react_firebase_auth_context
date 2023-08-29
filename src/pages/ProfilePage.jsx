@@ -5,6 +5,8 @@ export default function ProfilePage() {
 
   // pasiimti displayName protoUrl info is konteksto
 
+  // TODO: pasidaryti kad atsinaujintu info be refresh
+
   return (
     <div className='container'>
       <h1>ProfilePage</h1>
