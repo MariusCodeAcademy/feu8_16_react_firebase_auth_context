@@ -4,6 +4,7 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  updateDoc,
 } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import { useEffect, useState } from 'react';
@@ -64,7 +65,17 @@ export default function BooksPage() {
     }
   }
 
-  function turnSaleOn() {
+  async function turnSaleOn(idOnSale) {
+    console.log('idOnSale ===', idOnSale);
+
+    const todoToUpdateRef = doc(db, 'books', idOnSale);
+
+    // Set the "capital" field of the city 'DC'
+    await updateDoc(todoToUpdateRef, {
+      isOnSale: true,
+    });
+    getBooksFb();
+
     // iskviesti mygtuko paspaudimu
     // atnaujinti irasa padarnt jo isOnSale i true
     // https://firebase.google.com/docs/firestore/manage-data/add-data?hl=en&authuser=1#update-data
@@ -85,13 +96,13 @@ export default function BooksPage() {
             <h3>
               title: {bookObj.title}
               {/* tik tiems kas yra on sale rodom sita */}
-              <span className='tomato'> -- onSale</span>
+              {bookObj.isOnSale && <span className='tomato'> -- onSale</span>}
             </h3>
             <p>
               <i>author: {bookObj.author} </i>
             </p>
             <button onClick={() => handleDelete(bookObj.id)}>Delete</button>
-            <button>turn sale on</button>
+            <button onClick={() => turnSaleOn(bookObj.id)}>turn sale on</button>
           </li>
         ))}
       </ul>
