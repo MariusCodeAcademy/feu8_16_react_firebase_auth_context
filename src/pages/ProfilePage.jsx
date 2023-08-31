@@ -1,4 +1,16 @@
+import { useState } from 'react';
+
 export default function ProfilePage() {
+  const [dispName, setDispName] = useState('');
+  const [phUrl, setPhUrl] = useState('');
+
+  function enterDispName(event) {
+    setDispName(event.target.value);
+  }
+  function enterPhotoUrl(event) {
+    setPhUrl(event.target.value);
+  }
+
   // 1. updateProfile funkcijos pagalba atnaujinti reiksmes
   // https://firebase.google.com/docs/auth/web/manage-users#update_a_users_profile
   // pateikiant forma paimti reiksmes is displayName ir protoUrl
@@ -14,9 +26,24 @@ export default function ProfilePage() {
       <img src='#' alt='Profile image' />
       <p>Welcome to Your own space</p>
 
-      <p>Turi buti forma, 2 inputai</p>
-      <p>displayName</p>
-      <p>protoUrl</p>
+      <p>
+        entered values: {dispName} {phUrl}
+      </p>
+      <form>
+        <input
+          value={dispName}
+          onChange={enterDispName}
+          type='text'
+          placeholder='displayName'
+        />
+        <input
+          value={phUrl}
+          onChange={enterPhotoUrl}
+          type='text'
+          placeholder='protoUrl'
+        />
+        <button>update</button>
+      </form>
 
       <p>jei pavyksta pridet email atnaujinima</p>
     </div>
