@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 
 export default function TodoPage() {
   const [booksArr, setBooksArr] = useState([]);
-
+  console.log('booksArr ===', booksArr);
   async function getBooksFb() {
     // console.log('lets get some books');
 
@@ -63,7 +63,13 @@ export default function TodoPage() {
       console.warn('handleDelete error ===', error);
     }
   }
-  // atspausdinti console, ar pavyko ar ne
+
+  function turnSaleOn() {
+    // iskviesti mygtuko paspaudimu
+    // atnaujinti irasa padarnt jo isOnSale i true
+    // https://firebase.google.com/docs/firestore/manage-data/add-data?hl=en&authuser=1#update-data
+  }
+
   return (
     <div className='container'>
       <h1>Todo page</h1>
@@ -76,8 +82,16 @@ export default function TodoPage() {
       <ul>
         {booksArr.map((bookObj) => (
           <li key={bookObj.id}>
-            title: {bookObj.title}, author: {bookObj.author}{' '}
+            <h3>
+              title: {bookObj.title}
+              {/* tik tiems kas yra on sale rodom sita */}
+              <span className='tomato'> -- onSale</span>
+            </h3>
+            <p>
+              <i>author: {bookObj.author} </i>
+            </p>
             <button onClick={() => handleDelete(bookObj.id)}>Delete</button>
+            <button>turn sale on</button>
           </li>
         ))}
       </ul>
