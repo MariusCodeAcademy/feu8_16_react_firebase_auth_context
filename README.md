@@ -34,3 +34,9 @@ const initTodos = [
 1. virs formos prideti ivesties lauka su mygtuku (gali buti forma)
 2. mygtuko paspaudimu paimti ivesties lauko reiksme ir sukurti nauja todo el duomenu bazeje
 3. atnaujinti sarasa be perkrovimo
+
+## naujas projektas ssu
+
+1. Susikurti nauja projekta.
+2. Prisideti firebase, auth ir firestore
+3. nusiusti i kolekcija 'posts' nauja posta su title, autorium, tekstu ir kategorija
