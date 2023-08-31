@@ -35,6 +35,11 @@ export default function Header() {
               My Profile
             </NavLink>
           )}
+          {isLoggedIn && (
+            <NavLink className={'navLink'} to={'/todos'}>
+              Todos
+            </NavLink>
+          )}
           {!isLoggedIn && (
             <NavLink className={'navLink'} to={'/login'}>
               Login
