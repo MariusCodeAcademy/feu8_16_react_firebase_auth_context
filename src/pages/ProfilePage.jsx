@@ -1,8 +1,12 @@
 import { useState } from 'react';
+import { getAuth, updateProfile } from 'firebase/auth';
+import { useAuth } from '../store/AuthProvider';
 
 export default function ProfilePage() {
-  const [dispName, setDispName] = useState('');
-  const [phUrl, setPhUrl] = useState('');
+  const ctx = useAuth();
+
+  const [dispName, setDispName] = useState(ctx.displayName);
+  const [phUrl, setPhUrl] = useState(ctx.photoURL);
 
   function enterDispName(event) {
     setDispName(event.target.value);
@@ -11,25 +15,39 @@ export default function ProfilePage() {
     setPhUrl(event.target.value);
   }
 
-  // 1. updateProfile funkcijos pagalba atnaujinti reiksmes
-  // https://firebase.google.com/docs/auth/web/manage-users#update_a_users_profile
-  // pateikiant forma paimti reiksmes is displayName ir protoUrl
-
   // pasiimti displayName protoUrl info is konteksto
 
   // TODO: pasidaryti kad atsinaujintu info be refresh
 
+  /**@param {SubmitEvent} event */
+  function handleSubmit(event) {
+    event.preventDefault();
+    // kas ?
+    const auth = getAuth();
+    updateProfile(auth.currentUser, {
+      displayName: dispName,
+      photoURL: phUrl,
+    })
+      .then(() => {
+        // Profile updated!
+        console.log('update pavyko');
+      })
+      .catch((error) => {
+        // An error occurred
+        console.warn('update nepavyko');
+      });
+  }
+
   return (
     <div className='container'>
       <h1>ProfilePage</h1>
-      <h2>User display name</h2>
-      <img src='#' alt='Profile image' />
+      <h2>{ctx.displayName}</h2>
+      <img src={ctx.photoURL} alt='Profile image' />
       <p>Welcome to Your own space</p>
-
       <p>
         entered values: {dispName} {phUrl}
       </p>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           value={dispName}
           onChange={enterDispName}

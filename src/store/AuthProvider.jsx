@@ -5,6 +5,8 @@ import { auth } from '../firebase/firebase';
 const AuthContext = createContext({
   userEmail: '',
   isLoggedIn: false,
+  displayName: '',
+  photoURL: '',
 });
 
 export default function AuthProvider(props) {
@@ -17,6 +19,8 @@ export default function AuthProvider(props) {
   const ctx = {
     userEmail: userEmail,
     isLoggedIn: isLoggedIn,
+    displayName: fireUser.displayName,
+    photoURL: fireUser.photoURL,
   };
 
   useEffect(() => {
