@@ -5,7 +5,7 @@ import LoginPage from './pages/LoginPage';
 import Header from './components/layout/Header';
 import ProfilePage from './pages/ProfilePage';
 import { useAuth } from './store/AuthProvider';
-import TodoPage from './pages/TodoPage';
+import BooksPage from './pages/BooksPage';
 
 export default function App() {
   const ctx = useAuth();
@@ -22,8 +22,8 @@ export default function App() {
           }
         />
         <Route
-          path='/todos'
-          element={ctx.isLoggedIn ? <TodoPage /> : <Navigate to={'/login'} />}
+          path='/books'
+          element={ctx.isLoggedIn ? <BooksPage /> : <Navigate to={'/login'} />}
         />
 
         <Route

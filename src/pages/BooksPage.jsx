@@ -8,7 +8,7 @@ import {
 import { db } from '../firebase/firebase';
 import { useEffect, useState } from 'react';
 
-export default function TodoPage() {
+export default function BooksPage() {
   const [booksArr, setBooksArr] = useState([]);
   console.log('booksArr ===', booksArr);
   async function getBooksFb() {

@@ -36,8 +36,8 @@ export default function Header() {
             </NavLink>
           )}
           {isLoggedIn && (
-            <NavLink className={'navLink'} to={'/todos'}>
-              Todos
+            <NavLink className={'navLink'} to={'/books'}>
+              Books
             </NavLink>
           )}
           {!isLoggedIn && (
