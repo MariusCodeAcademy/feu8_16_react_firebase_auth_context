@@ -5,8 +5,9 @@
 ### init
 
 1. sukurti komponenta TodoPage.jsx
-2. jame prideti mygtuka initTodo kuris iskviecia funkcija
-3. funkcija po viena (atskirais iskvietimais) iraso i db tris irasus (colekcija 'todos'):
+2. prideti i headeri ir route.
+3. jame prideti mygtuka initTodo kuris iskviecia funkcija
+4. funkcija po viena (atskirais iskvietimais) iraso i db tris irasus (colekcija 'todos'):
 
 ````js
 const initTodos = [
