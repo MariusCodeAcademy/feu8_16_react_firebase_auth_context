@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { getAuth, updateProfile } from 'firebase/auth';
-import { useAuth } from '../store/AuthProvider';
 
 export default function ProfilePage() {
-  const ctx = useAuth();
+  const auth = getAuth();
+  const [dispName, setDispName] = useState(auth.currentUser.displayName);
+  const [phUrl, setPhUrl] = useState(auth.currentUser.photoURL);
 
-  const [dispName, setDispName] = useState(ctx.displayName);
-  const [phUrl, setPhUrl] = useState(ctx.photoURL);
+  const [updateHappened, setUpdateHappened] = useState(false);
 
   function enterDispName(event) {
     setDispName(event.target.value);
@@ -33,6 +33,7 @@ export default function ProfilePage() {
         console.log('update pavyko');
         console.log('auth.currentUser ===', auth.currentUser);
         // iskviesti getUserInfo() funkcija esancia kontekste
+        setUpdateHappened(!updateHappened);
       })
       .catch((error) => {
         // An error occurred
@@ -43,8 +44,8 @@ export default function ProfilePage() {
   return (
     <div className='container'>
       <h1>ProfilePage</h1>
-      <h2>{ctx.displayName}</h2>
-      <img src={ctx.photoURL} alt='Profile image' />
+      <h2>{auth.currentUser.displayName}</h2>
+      <img src={auth.currentUser.photoURL} alt='Profile image' />
       <p>Welcome to Your own space</p>
       <p>
         entered values: {dispName} {phUrl}

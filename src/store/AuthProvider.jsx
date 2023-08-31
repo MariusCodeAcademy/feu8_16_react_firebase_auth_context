@@ -1,12 +1,10 @@
-import { onAuthStateChanged } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { auth } from '../firebase/firebase';
 
 const AuthContext = createContext({
   userEmail: '',
   isLoggedIn: false,
-  displayName: '',
-  photoURL: '',
 });
 
 export default function AuthProvider(props) {
@@ -35,15 +33,9 @@ export default function AuthProvider(props) {
     });
   }, []);
 
-  function getUserInfo() {
-    setFireUser(auth.currentUser);
-  }
-
   const ctx = {
     userEmail: userEmail,
     isLoggedIn: isLoggedIn,
-    displayName: fireUser.displayName,
-    photoURL: fireUser.photoURL,
   };
 
   return (
