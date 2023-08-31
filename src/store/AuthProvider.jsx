@@ -16,13 +16,6 @@ export default function AuthProvider(props) {
   let isLoggedIn = userEmail ? true : false;
   isLoggedIn = !!userEmail;
 
-  const ctx = {
-    userEmail: userEmail,
-    isLoggedIn: isLoggedIn,
-    displayName: fireUser.displayName,
-    photoURL: fireUser.photoURL,
-  };
-
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -41,6 +34,17 @@ export default function AuthProvider(props) {
       }
     });
   }, []);
+
+  function getUserInfo() {
+    setFireUser(auth.currentUser);
+  }
+
+  const ctx = {
+    userEmail: userEmail,
+    isLoggedIn: isLoggedIn,
+    displayName: fireUser.displayName,
+    photoURL: fireUser.photoURL,
+  };
 
   return (
     <AuthContext.Provider value={ctx}>{props.children}</AuthContext.Provider>

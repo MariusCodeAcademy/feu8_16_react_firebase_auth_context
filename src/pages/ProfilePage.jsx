@@ -31,6 +31,8 @@ export default function ProfilePage() {
       .then(() => {
         // Profile updated!
         console.log('update pavyko');
+        console.log('auth.currentUser ===', auth.currentUser);
+        // iskviesti getUserInfo() funkcija esancia kontekste
       })
       .catch((error) => {
         // An error occurred
