@@ -1,64 +1,35 @@
-# Steps
-
-1. `npm install firebase`
-2. firebase/firebase.js
-
-```js
-// Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
-const firebaseConfig = {};
-// Initialize Firebase
-export const app = initializeApp(firebaseConfig);
-```
-
 # Praktika
 
-## Profile page
+## TODO PAGE
 
-1. Sukurti forma su displayName ir protoUrl
-2. pateikiant forma paimti reiksmes is displayName ir protoUrl
-3. updateProfile funkcijos pagalba atnaujinti reiksmes
-   https://firebase.google.com/docs/auth/web/manage-users#update_a_users_profile
+### init
 
-4. paduoti i konteksta (AuthProvider) displayName ir protoUrl is fireUser
-5. pasiimti displayName protoUrl info is konteksto ir jas panaudoti kaip pradines reiksmes displayName ir protoUrl.
-6. graziai sustilizuoti profilio puslapi, nuotrauka, display name, email
-7. puslapio apacioje prideti Logout mygtuka, padaryti kad veiktu
+1. sukurti komponenta TodoPage.jsx
+2. jame prideti mygtuka initTodo kuris iskviecia funkcija
+3. funkcija po viena (atskirais iskvietimais) iraso i db tris irasus (colekcija 'todos'):
 
-## Login page
+````js
+const initTodos = [
+  { title: 'Buy Eggs', done: false, date: '' },
+  { title: 'Go to Shopping', done: true, date: '' },
+  { title: 'Do a 100 pushups', done: false, date: '' },
+];```
+````
 
-1. Susikurti klaidai state.
-2. Sureaguoti i klaida
+### read
 
-   2.1 Atvaizduoti virs formos "wrong email or password"
-   2.2 Jei klaida kad nerastas email, atvaizduoti "This email is not registered" kitais atvejais "wrong email or password"
+1. tik uzsikrovus komponentui parsiiusti duomenis is firebase colekcios 'todos'.
+2. susigeneruoti masyva su id ir irasyti i state
+3. mapinti ir atvaizduoti irasus saraso pavidalu
 
-## Register page
+### delete
 
-1. sukurti RegisterPage puslapi
-2. sukurti forma su email, pass ir repeat_pass inputais
-3. susieti inputus su state
-4. sustabdyti forma nuo persiuntimo su funkcija.
-5. pateikiant forma slaptazodis turetu buti min 5 simboliai
-6. pateikiant forma palyginti ar slaptazodziai sutampa
-7. jei sutampa createUserWithEmailAndPassword funkcijos pagalba uzregistruoti vartotoja
-   https://firebase.google.com/docs/auth/web/password-auth#create_a_password-based_account
-8. jei ne parodyti kad nesutampa slaptazodziai, arba kad per trumpa ivestis.
+1. prisideti mygtuka delete prie kievieno todo
+2. padaryti kad paspaudus issitrintu irasas
+3. atnaujinti sarasas
 
-## Header
+### add todo
 
-1. atvaizduoti prisijungusio userio email
-2. atvaizduoti prisijungusio userio displayName jei ivestas, email jei nenustatytas
-
-## Profile page
-
-1. sukurti mygtuka 'Delete user'
-2. jo paspaudimu istrinti vartotoja
-   https://firebase.google.com/docs/auth/web/manage-users#delete_a_user
-
-## Add firebase to project
-
-1. pradeti nauja vite projekta
-2. instaliuoti firebase
-3. iskonsolinti firebase app konstanta.
-4. naudoti .env kintamuosius savo prisijungimams
+1. virs formos prideti ivesties lauka su mygtuku (gali buti forma)
+2. mygtuko paspaudimu paimti ivesties lauko reiksme ir sukurti nauja todo el duomenu bazeje
+3. atnaujinti sarasa be perkrovimo
