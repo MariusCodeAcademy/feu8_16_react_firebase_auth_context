@@ -4,6 +4,7 @@ import {
   getDocs,
   deleteDoc,
   doc,
+  updateDoc,
 } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import { useEffect, useState } from 'react';
@@ -106,6 +107,26 @@ export default function TodoPage() {
     }
   }
 
+  async function handleToggleDone(idToEdit) {
+    console.log('idToEdit ===', idToEdit);
+
+    try {
+      const todoKuriEditinamRef = doc(db, 'todos', idToEdit);
+      const todoObjAntKurioPaspausta = localTodoArr.find(
+        (todoObj) => todoObj.id === idToEdit
+      );
+      console.log('todoObjAntKurioPaspausta ===', todoObjAntKurioPaspausta);
+      const doneReiksme = todoObjAntKurioPaspausta.done;
+      // Set the "capital" field of the city 'DC'
+      await updateDoc(todoKuriEditinamRef, {
+        done: !doneReiksme, // gauti elemento kuris turi id idToEdit done reiksme
+      });
+      getTodosFromFireStore();
+    } catch (error) {
+      console.warn('handleToggleDone', error);
+    }
+  }
+
   return (
     <div className='container'>
       <h1>TodoPage</h1>
@@ -133,7 +154,12 @@ export default function TodoPage() {
         {localTodoArr.map((tObj) => (
           <li className='todoItem  gap-10 mb-10' key={tObj.id}>
             {tObj.done ? <BsCheckCircle size={20} /> : <BsCircle size={20} />}
-            <span>{tObj.title}</span>
+            <span
+              onClick={() => handleToggleDone(tObj.id)}
+              className={tObj.done ? 'doneItem' : ''}
+            >
+              {tObj.title}
+            </span>
             <button
               onClick={() => deleteSingleTodo(tObj.id)}
               className='deleteBnt'
