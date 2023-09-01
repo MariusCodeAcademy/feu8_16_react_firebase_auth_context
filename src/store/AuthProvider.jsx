@@ -23,8 +23,7 @@ export default function AuthProvider(props) {
         const uid = user.uid;
         // ...
         console.log('Prisijungta');
-        // console.log('user ===', user);
-        console.log('user ===', user);
+
         setFireUser(user);
         localStorage.setItem('fbToken', user.accessToken);
       } else {
