@@ -98,6 +98,14 @@ export default function TodoPage() {
     }
   }
 
+  function handleEnterKey(event) {
+    // console.log('handleEnterKey ivyko', event);
+    if (event.key === 'Enter') {
+      console.log('enter buvo paspausta');
+      handleNewTodo();
+    }
+  }
+
   return (
     <div className='container'>
       <h1>TodoPage</h1>
@@ -108,6 +116,7 @@ export default function TodoPage() {
         <legend>Add todo</legend>
         <input
           onChange={(event) => setNewInputTitle(event.target.value)}
+          onKeyUp={handleEnterKey}
           value={newInputTitle}
           type='text'
           placeholder='Add new Todo'
