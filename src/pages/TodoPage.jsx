@@ -1,6 +1,7 @@
 import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import { useEffect, useState } from 'react';
+import { BsCircle, BsCheckCircle } from 'react-icons/bs';
 
 const initTodos = [
   { title: 'Buy Eggs', done: false, date: '' },
@@ -56,9 +57,16 @@ export default function TodoPage() {
       {/* <button onClick={initTodo}>initTodo</button> */}
       {/* <button onClick={getTodosFromFireStore}>get Todos</button> */}
 
-      <ul>
+      <ul className='unlisted'>
         {/* atspausdinti visus todo */}
-        <li>todo title</li>
+        {localTodoArr.map((tObj) => (
+          <li key={tObj.id}>
+            {' '}
+            <BsCircle size={20} />
+            <BsCheckCircle size={20} />
+            <span>{tObj.title}</span>
+          </li>
+        ))}
       </ul>
     </div>
   );
