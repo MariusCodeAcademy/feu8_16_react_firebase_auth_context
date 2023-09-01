@@ -83,7 +83,7 @@ export default function BooksPage() {
 
   return (
     <div className='container'>
-      <h1>Todo page</h1>
+      <h1>Books page</h1>
       <p>make your todos</p>
       <div>
         <button onClick={() => {}}>get books data</button>
