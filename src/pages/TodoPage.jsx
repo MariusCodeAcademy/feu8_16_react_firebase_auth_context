@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { BsCircle, BsCheckCircle } from 'react-icons/bs';
 import { MdDeleteForever } from 'react-icons/md';
 import { GrAddCircle } from 'react-icons/gr';
+import { FiEdit } from 'react-icons/fi';
 import './Todo.css';
 
 const initTodos = [
@@ -160,11 +161,15 @@ export default function TodoPage() {
             >
               {tObj.title}
             </span>
+            {/* <input type='text'  /> */}
             <button
               onClick={() => deleteSingleTodo(tObj.id)}
               className='deleteBnt'
             >
               <MdDeleteForever size={20} />
+            </button>
+            <button>
+              <FiEdit />
             </button>
           </li>
         ))}
