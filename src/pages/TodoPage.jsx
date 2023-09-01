@@ -2,6 +2,8 @@ import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import { useEffect, useState } from 'react';
 import { BsCircle, BsCheckCircle } from 'react-icons/bs';
+import { MdDeleteForever } from 'react-icons/md';
+import './Todo.css';
 
 const initTodos = [
   { title: 'Buy Eggs', done: false, date: '' },
@@ -60,11 +62,12 @@ export default function TodoPage() {
       <ul className='unlisted'>
         {/* atspausdinti visus todo */}
         {localTodoArr.map((tObj) => (
-          <li key={tObj.id}>
-            {' '}
-            <BsCircle size={20} />
-            <BsCheckCircle size={20} />
+          <li className='todoItem  gap-10 mb-10' key={tObj.id}>
+            {tObj.done ? <BsCheckCircle size={20} /> : <BsCircle size={20} />}
             <span>{tObj.title}</span>
+            <button className='deleteBnt'>
+              <MdDeleteForever size={20} />
+            </button>
           </li>
         ))}
       </ul>
