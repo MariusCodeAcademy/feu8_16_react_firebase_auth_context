@@ -1,4 +1,10 @@
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+} from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import { useEffect, useState } from 'react';
 import { BsCircle, BsCheckCircle } from 'react-icons/bs';
@@ -52,11 +58,25 @@ export default function TodoPage() {
     getTodosFromFireStore();
   }, []);
 
+  async function deleteSingleTodo(idToDelete) {
+    console.log('idToDelete ===', idToDelete);
+    // delete form firebase
+    try {
+      await deleteDoc(doc(db, 'todos', idToDelete));
+      // getTodosFromFireStore();
+      // localiai pasalinti elementa is state
+      const filtered = localTodoArr.filter((tObj) => tObj.id !== idToDelete);
+      setLocalTodoArr(filtered);
+    } catch (error) {
+      console.warn('deleteSingleTodo', error);
+    }
+  }
+
   return (
     <div className='container'>
       <h1>TodoPage</h1>
       <p>Welcome to TodoPage page</p>
-      {/* <button onClick={initTodo}>initTodo</button> */}
+      <button onClick={initTodo}>initTodo</button>
       {/* <button onClick={getTodosFromFireStore}>get Todos</button> */}
 
       <ul className='unlisted'>
@@ -65,7 +85,10 @@ export default function TodoPage() {
           <li className='todoItem  gap-10 mb-10' key={tObj.id}>
             {tObj.done ? <BsCheckCircle size={20} /> : <BsCircle size={20} />}
             <span>{tObj.title}</span>
-            <button className='deleteBnt'>
+            <button
+              onClick={() => deleteSingleTodo(tObj.id)}
+              className='deleteBnt'
+            >
               <MdDeleteForever size={20} />
             </button>
           </li>
