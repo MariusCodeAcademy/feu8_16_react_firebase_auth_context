@@ -6,7 +6,7 @@ import { auth } from '../../firebase/firebase';
 
 export default function Header() {
   const ctx = useAuth();
-  console.log('ctx ===', ctx);
+  // console.log('ctx ===', ctx);
 
   const isLoggedIn = ctx.isLoggedIn;
 

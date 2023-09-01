@@ -19,8 +19,9 @@ const initTodos = [
 ];
 
 export default function TodoPage() {
+  const [newInputTitle, setNewInputTitle] = useState('');
   const [localTodoArr, setLocalTodoArr] = useState([]);
-  console.log('localTodoArr ===', localTodoArr);
+  // console.log('localTodoArr ===', localTodoArr);
   async function initTodo() {
     console.log('initTodo');
 
@@ -37,9 +38,9 @@ export default function TodoPage() {
 
     try {
       const querySnapshot = await getDocs(collection(db, 'todos'));
-      console.log('querySnapshot ===', querySnapshot);
+      // console.log('querySnapshot ===', querySnapshot);
       // sekme
-      console.log('success');
+      // console.log('success');
       const todosBack = [];
       querySnapshot.forEach((doc) => {
         // console.log(`${doc.id} =>`, doc.data());
@@ -48,7 +49,7 @@ export default function TodoPage() {
           ...doc.data(),
         });
       });
-      console.log('todosBack ===', todosBack);
+      // console.log('todosBack ===', todosBack);
       setLocalTodoArr(todosBack);
     } catch (error) {
       console.warn('error geting todos', error);
@@ -76,21 +77,42 @@ export default function TodoPage() {
   // 1 susieti inputa su state
 
   // 2 funkcija kuri bus vykdoma kai bus paspaustas mygtukaS
+  async function handleNewTodo() {
+    console.log('handleNewTodo');
+    if (!newInputTitle.trim()) return;
 
-  // 3 panaudosim addDoc fn irasyti i db
-
-  // 4 parisiussti duomenis is db
+    const newTodoObj = {
+      title: newInputTitle,
+      done: false,
+      date: +new Date(),
+    };
+    console.log('newTodoObj ===', newTodoObj);
+    try {
+      // 3 panaudosim addDoc fn irasyti i db
+      await addDoc(collection(db, 'todos'), newTodoObj);
+      // 4 parisiussti duomenis is db
+      getTodosFromFireStore();
+      setNewInputTitle('');
+    } catch (error) {
+      console.warn('handleNewTodo', error);
+    }
+  }
 
   return (
     <div className='container'>
       <h1>TodoPage</h1>
       <p>Welcome to TodoPage page</p>
       <button onClick={initTodo}>initTodo</button>
-
+      <p>title: {newInputTitle}</p>
       <fieldset className='flex gap-10'>
         <legend>Add todo</legend>
-        <input type='text' placeholder='Add new Todo' />
-        <button>
+        <input
+          onChange={(event) => setNewInputTitle(event.target.value)}
+          value={newInputTitle}
+          type='text'
+          placeholder='Add new Todo'
+        />
+        <button onClick={handleNewTodo}>
           <GrAddCircle size={25} />
         </button>
       </fieldset>

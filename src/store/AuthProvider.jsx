@@ -22,14 +22,14 @@ export default function AuthProvider(props) {
         // https://firebase.google.com/docs/reference/js/auth.user
         const uid = user.uid;
         // ...
-        console.log('Prisijungta');
+        // console.log('Prisijungta');
 
         setFireUser(user);
         localStorage.setItem('fbToken', user.accessToken);
       } else {
         // User is signed out
         // ...
-        console.log('Atsijungta');
+        // console.log('Atsijungta');
         setFireUser({});
         localStorage.removeItem('fbToken');
       }
