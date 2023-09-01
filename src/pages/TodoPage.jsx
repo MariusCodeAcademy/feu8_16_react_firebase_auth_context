@@ -9,6 +9,7 @@ import { db } from '../firebase/firebase';
 import { useEffect, useState } from 'react';
 import { BsCircle, BsCheckCircle } from 'react-icons/bs';
 import { MdDeleteForever } from 'react-icons/md';
+import { GrAddCircle } from 'react-icons/gr';
 import './Todo.css';
 
 const initTodos = [
@@ -72,11 +73,28 @@ export default function TodoPage() {
     }
   }
 
+  // 1 susieti inputa su state
+
+  // 2 funkcija kuri bus vykdoma kai bus paspaustas mygtukaS
+
+  // 3 panaudosim addDoc fn irasyti i db
+
+  // 4 parisiussti duomenis is db
+
   return (
     <div className='container'>
       <h1>TodoPage</h1>
       <p>Welcome to TodoPage page</p>
       <button onClick={initTodo}>initTodo</button>
+
+      <fieldset className='flex gap-10'>
+        <legend>Add todo</legend>
+        <input type='text' placeholder='Add new Todo' />
+        <button>
+          <GrAddCircle size={25} />
+        </button>
+      </fieldset>
+
       {/* <button onClick={getTodosFromFireStore}>get Todos</button> */}
 
       <ul className='unlisted'>
