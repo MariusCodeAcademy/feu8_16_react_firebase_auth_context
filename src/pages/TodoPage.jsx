@@ -23,7 +23,14 @@ const initTodos = [
 export default function TodoPage() {
   const [newInputTitle, setNewInputTitle] = useState('');
   const [localTodoArr, setLocalTodoArr] = useState([]);
+  const [isEditOn, setIsEditOn] = useState(false);
   // console.log('localTodoArr ===', localTodoArr);
+  console.log('localTodoArr ===', JSON.stringify(localTodoArr, null, 2));
+  function editTodo(idToEdit) {
+    //
+    console.log('idToEdit ===', idToEdit);
+  }
+
   async function initTodo() {
     console.log('initTodo');
 
@@ -49,6 +56,7 @@ export default function TodoPage() {
         todosBack.push({
           id: doc.id,
           ...doc.data(),
+          isEditOn: false,
         });
       });
       // console.log('todosBack ===', todosBack);
@@ -155,12 +163,16 @@ export default function TodoPage() {
         {localTodoArr.map((tObj) => (
           <li className='todoItem  gap-10 mb-10' key={tObj.id}>
             {tObj.done ? <BsCheckCircle size={20} /> : <BsCircle size={20} />}
-            <span
-              onClick={() => handleToggleDone(tObj.id)}
-              className={tObj.done ? 'doneItem' : ''}
-            >
-              {tObj.title}
-            </span>
+            {/* title el */}
+            {tObj.isEditOn === false && (
+              <span
+                onClick={() => handleToggleDone(tObj.id)}
+                className={tObj.done ? 'doneItem' : ''}
+              >
+                {tObj.title}
+              </span>
+            )}
+            {tObj.isEditOn && <input type='text' placeholder='edit' />}
             {/* <input type='text'  /> */}
             <button
               onClick={() => deleteSingleTodo(tObj.id)}
@@ -168,7 +180,7 @@ export default function TodoPage() {
             >
               <MdDeleteForever size={20} />
             </button>
-            <button>
+            <button onClick={() => editTodo(tObj.id)}>
               <FiEdit />
             </button>
           </li>
