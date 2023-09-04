@@ -1,3 +1,4 @@
+import GoogleLogin from '../components/GoogleLogin';
 import Login from '../components/Login';
 
 export default function LoginPage() {
@@ -5,6 +6,8 @@ export default function LoginPage() {
     <div className='container'>
       <h1>LoginPage</h1>
       <Login />
+      <hr />
+      <GoogleLogin />
     </div>
   );
 }
