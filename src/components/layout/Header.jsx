@@ -31,20 +31,19 @@ export default function Header() {
             Home
           </NavLink>
           {isLoggedIn && (
-            <NavLink className={'navLink'} to={'/profile'}>
-              My Profile
-            </NavLink>
+            <>
+              <NavLink className={'navLink'} to={'/profile'}>
+                My Profile
+              </NavLink>
+              <NavLink className={'navLink'} to={'/books'}>
+                Books
+              </NavLink>
+              <NavLink className={'navLink'} to={'/todos'}>
+                Todos
+              </NavLink>
+            </>
           )}
-          {isLoggedIn && (
-            <NavLink className={'navLink'} to={'/books'}>
-              Books
-            </NavLink>
-          )}
-          {isLoggedIn && (
-            <NavLink className={'navLink'} to={'/todos'}>
-              Todos
-            </NavLink>
-          )}
+
           {!isLoggedIn && (
             <NavLink className={'navLink'} to={'/login'}>
               Login

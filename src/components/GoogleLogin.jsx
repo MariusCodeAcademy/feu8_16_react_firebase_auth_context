@@ -32,11 +32,11 @@ export default function GoogleLogin() {
   }
 
   return (
-    <div>
-      <h2>Login with google</h2>
+    <>
+      <h3>Goole login</h3>
       <button onClick={authWithGoogle}>
         <FcGoogle size={35} />
       </button>
-    </div>
+    </>
   );
 }
