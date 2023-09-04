@@ -12,7 +12,8 @@ export default function AuthProvider(props) {
   // pasiimti is localstorage
   const accToken = localStorage.getItem('fbToken');
   const userEmail = fireUser?.email;
-  let isLoggedIn = userEmail ? true : false;
+  let isLoggedIn = accToken ? true : false;
+  isLoggedIn = Boolean(accToken);
   isLoggedIn = !!accToken;
 
   useEffect(() => {
