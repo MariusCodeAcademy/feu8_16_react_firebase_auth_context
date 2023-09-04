@@ -1,7 +1,7 @@
 const localTodoArr = [
   {
     id: '4Rtcv4auu4AL7odoVMgF',
-    title: 'go for a walk ',
+    title: 'go for a walk',
     date: 1693557232433,
     done: false,
     isEditOn: false,
@@ -40,13 +40,18 @@ const localTodoArr = [
     date: '',
     done: true,
     isEditOn: false,
+    editTitle: '',
   },
 ];
 
 function makeTodoTrue(idToMakeTrue) {
   const pakeistas = localTodoArr.map((tObj) => {
+    if (tObj.id === idToMakeTrue) {
+      // radom objekta kuri reikia pakeisti
+      return { ...tObj, isEditOn: true };
+    }
     return tObj;
   });
-  console.log('pakeistas ===', pakeistas);
 }
 makeTodoTrue('tKwDlYzFJnJvpA3BHnzl');
+console.log('localTodoArr ===', localTodoArr);

@@ -22,13 +22,44 @@ const initTodos = [
 
 export default function TodoPage() {
   const [newInputTitle, setNewInputTitle] = useState('');
+  const [editIntpuTitle, setEditIntpuTitle] = useState('');
   const [localTodoArr, setLocalTodoArr] = useState([]);
   const [isEditOn, setIsEditOn] = useState(false);
   // console.log('localTodoArr ===', localTodoArr);
-  console.log('localTodoArr ===', JSON.stringify(localTodoArr, null, 2));
-  function editTodo(idToEdit) {
-    //
-    console.log('idToEdit ===', idToEdit);
+  // console.log('localTodoArr ===', JSON.stringify(localTodoArr, null, 2));
+  async function editTodo(idToEdit) {
+    // ar edit yra ijungtas?
+    if (isEditOn === true) {
+      // jei ijungtas mes siunciam atnaujinima i firebase
+      try {
+        const refToUpdateEl = doc(db, 'todos', idToEdit);
+        await updateDoc(refToUpdateEl, {
+          title: editIntpuTitle,
+        });
+        getTodosFromFireStore();
+        setIsEditOn(false);
+      } catch (error) {
+        console.warn('error update title', error);
+      }
+    }
+
+    // edit ijungimas
+    const localTodoArrSuEditOn = localTodoArr.map((tObj) => {
+      if (tObj.id === idToEdit) {
+        // radom objekta kuri reikia pakeisti
+        return { ...tObj, isEditOn: true };
+      }
+      return tObj;
+    });
+    setLocalTodoArr(localTodoArrSuEditOn);
+    setEditIntpuTitle(
+      localTodoArrSuEditOn.find((tObj) => tObj.id === idToEdit).title
+    );
+    setIsEditOn(true);
+  }
+
+  function editTitle(event) {
+    setEditIntpuTitle(event.target.value);
   }
 
   async function initTodo() {
@@ -142,6 +173,7 @@ export default function TodoPage() {
       <p>Welcome to TodoPage page</p>
       <button onClick={initTodo}>initTodo</button>
       <p>title: {newInputTitle}</p>
+      <p>editIntpuTitle: {editIntpuTitle}</p>
       <fieldset className='flex gap-10'>
         <legend>Add todo</legend>
         <input
@@ -172,7 +204,14 @@ export default function TodoPage() {
                 {tObj.title}
               </span>
             )}
-            {tObj.isEditOn && <input type='text' placeholder='edit' />}
+            {tObj.isEditOn && (
+              <input
+                type='text'
+                onChange={editTitle}
+                value={editIntpuTitle}
+                placeholder='edit'
+              />
+            )}
             {/* <input type='text'  /> */}
             <button
               onClick={() => deleteSingleTodo(tObj.id)}
